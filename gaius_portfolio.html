@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaius Nyd Formoso — SEO Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f0e8;
+    --paper2: #ede8dc;
+    --accent: #c8440a;
+    --accent2: #1a3a2a;
+    --gold: #b89a4e;
+    --muted: #6b6456;
+    --rule: #ccc5b5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 48px;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 80px 64px 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(52px, 7vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    border-left: 2px solid var(--accent);
+    padding-left: 20px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    border: 2px solid var(--ink);
+  }
+
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    padding: 14px 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid var(--ink);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+
+  /* ─── HERO RIGHT: STATS PANEL ─── */
+  .hero-right {
+    background: var(--ink);
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(200,68,10,0.15), transparent 60%);
+    pointer-events: none;
+  }
+
+  .stat-cell {
+    padding: 48px 40px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .stat-cell:hover { background: rgba(200,68,10,0.08); }
+
+  .stat-cell:nth-child(2), .stat-cell:nth-child(4) { border-right: none; }
+  .stat-cell:nth-child(3), .stat-cell:nth-child(4) { border-bottom: none; }
+
+  .stat-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    color: #f5f0e8;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 4px;
+  }
+
+  .stat-delta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { position: relative; }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 64px;
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  /* ─── PHILOSOPHY BAND ─── */
+  .philosophy {
+    background: var(--accent2);
+    overflow: hidden;
+  }
+
+  .philosophy .section-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .philosophy .section-title {
+    color: #f5f0e8;
+    font-size: clamp(28px, 3vw, 42px);
+  }
+
+  .philosophy .section-tag { color: var(--gold); }
+  .philosophy .section-tag::after { background: var(--gold); }
+
+  .philosophy-quote {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(22px, 2.5vw, 34px);
+    line-height: 1.3;
+    color: rgba(245,240,232,0.92);
+    font-style: italic;
+    border-left: 3px solid var(--gold);
+    padding-left: 32px;
+  }
+
+  .philosophy-quote cite {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-style: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 20px;
+  }
+
+  /* ─── EXPERTISE GRID ─── */
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin-top: 64px;
+  }
+
+  .expertise-card {
+    background: var(--paper);
+    padding: 40px 36px;
+    transition: background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .expertise-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    transition: width 0.35s ease;
+  }
+
+  .expertise-card:hover { background: var(--paper2); }
+  .expertise-card:hover::before { width: 100%; }
+
+  .expertise-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    color: var(--rule);
+    line-height: 1;
+    margin-bottom: 16px;
+    transition: color 0.25s;
+  }
+
+  .expertise-card:hover .expertise-num { color: var(--accent); opacity: 0.3; }
+
+  .expertise-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+
+  .expertise-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .expertise-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tool-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    padding: 3px 8px;
+  }
+
+  /* ─── CASE STUDIES ─── */
+  .case-studies { background: var(--ink); }
+
+  .case-studies .section-title { color: var(--paper); }
+  .case-studies .section-tag { color: var(--accent); }
+  .case-studies .section-tag::after { background: var(--accent); }
+
+  .case-studies .section-inner > p {
+    color: rgba(245,240,232,0.5);
+    font-size: 12px;
+    margin-top: 12px;
+    margin-bottom: 64px;
+    max-width: 480px;
+  }
+
+  .case-grid { display: flex; flex-direction: column; gap: 2px; }
+
+  .case-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 48px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .case-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+
+  .case-card:hover { background: rgba(255,255,255,0.06); }
+  .case-card:hover::before { width: 3px; }
+
+  .case-industry {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .case-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(22px, 2vw, 30px);
+    color: var(--paper);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .case-narrative {
+    font-size: 12px;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .case-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .case-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 3px 8px;
+  }
+
+  .case-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    align-content: start;
+  }
+
+  .metric-block {
+    background: rgba(255,255,255,0.04);
+    padding: 24px 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .metric-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(24px, 2.5vw, 36px);
+    color: var(--paper);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    margin-bottom: 4px;
+  }
+
+  .metric-delta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+  }
+
+  /* ─── TOOLS SECTION ─── */
+  .tools-section { background: var(--paper2); }
+
+  .tools-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 64px;
+  }
+
+  .tools-sidebar {
+    position: sticky;
+    top: 100px;
+  }
+
+  .tools-sidebar p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--rule);
+  }
+
+  .tool-card {
+    background: var(--paper2);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+
+  .tool-card:hover { background: var(--paper); }
+
+  .tool-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .tool-freq {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .tool-freq.daily { color: var(--accent); }
+  .tool-freq.core { color: var(--accent2); }
+  .tool-freq.content { color: var(--gold); }
+  .tool-freq.cms { color: var(--muted); }
+
+  /* ─── EXPERIENCE ─── */
+  .experience-timeline {
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .exp-item:first-child { padding-top: 0; }
+
+  .exp-meta {
+    padding-top: 4px;
+  }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .exp-company {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .exp-role {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .exp-bullets li {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact { background: var(--ink); overflow: hidden; position: relative; }
+
+  .contact::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,68,10,0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact .section-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact .section-title {
+    font-size: clamp(36px, 5vw, 72px);
+    color: var(--paper);
+    margin-bottom: 24px;
+  }
+
+  .contact .section-tag { color: var(--accent); }
+  .contact .section-tag::after { background: var(--accent); }
+
+  .contact-desc {
+    color: rgba(245,240,232,0.5);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    padding: 20px 24px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    background: rgba(200,68,10,0.06);
+  }
+
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 4px;
+  }
+
+  .contact-link-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--paper);
+  }
+
+  .contact-link-arrow {
+    margin-left: auto;
+    font-size: 18px;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+
+  .contact-link:hover .contact-link-arrow { transform: translateX(4px); }
+
+  .availability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,68,10,0.15);
+    border: 1px solid rgba(200,68,10,0.3);
+    color: var(--accent);
+    padding: 8px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .availability-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 28px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.25);
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── MARQUEE DIVIDER ─── */
+  .marquee-wrap {
+    background: var(--accent);
+    overflow: hidden;
+    padding: 14px 0;
+    white-space: nowrap;
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 24s linear infinite;
+  }
+
+  .marquee-track span {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.9);
+    padding: 0 32px;
+  }
+
+  .marquee-track span.dot {
+    color: rgba(245,240,232,0.4);
+    padding: 0;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 60px 24px 40px; }
+    .hero-right {
+      min-height: 400px;
+      grid-template-rows: 1fr 1fr;
+    }
+    .section-inner { padding: 80px 24px; }
+    .philosophy .section-inner { grid-template-columns: 1fr; gap: 32px; }
+    .expertise-grid { grid-template-columns: 1fr 1fr; }
+    .case-card { grid-template-columns: 1fr; gap: 32px; }
+    .tools-layout { grid-template-columns: 1fr; }
+    .tools-sidebar { position: static; }
+    .tools-grid { grid-template-columns: 1fr 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 12px; }
+    .contact .section-inner { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">GNF · SEO</a>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">SEO Specialist · 5 Years</p>
+    <h1 class="hero-name">Gaius<br><em>Nyd</em><br>Formoso</h1>
+    <p class="hero-desc">
+      I build search strategies that connect strong technical foundations to real organic growth — across enterprise sites, local brands, and content-driven businesses.
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">View Case Studies</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-cell">
+      <div class="stat-number">1.08M</div>
+      <div class="stat-label">Organic Clicks</div>
+      <div class="stat-delta">Single client · 12 months</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">59.6M</div>
+      <div class="stat-label">Total Impressions</div>
+      <div class="stat-delta">Across managed accounts</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">246K</div>
+      <div class="stat-label">Active Users / 28 days</div>
+      <div class="stat-delta">+797.5% YoY growth</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">$1M+</div>
+      <div class="stat-label">GA4 Revenue Tracked</div>
+      <div class="stat-delta">+272.7% vs prior period</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Technical SEO</span><span class="dot">·</span>
+    <span>Content Architecture</span><span class="dot">·</span>
+    <span>Core Web Vitals</span><span class="dot">·</span>
+    <span>E-E-A-T Optimization</span><span class="dot">·</span>
+    <span>Schema Markup</span><span class="dot">·</span>
+    <span>Local SEO</span><span class="dot">·</span>
+    <span>AI-Era Search</span><span class="dot">·</span>
+    <span>Topical Authority</span><span class="dot">·</span>
+    <span>Keyword Clustering</span><span class="dot">·</span>
+    <span>LLM Visibility</span><span class="dot">·</span>
+    <span>Technical SEO</span><span class="dot">·</span>
+    <span>Content Architecture</span><span class="dot">·</span>
+    <span>Core Web Vitals</span><span class="dot">·</span>
+    <span>E-E-A-T Optimization</span><span class="dot">·</span>
+    <span>Schema Markup</span><span class="dot">·</span>
+    <span>Local SEO</span><span class="dot">·</span>
+    <span>AI-Era Search</span><span class="dot">·</span>
+    <span>Topical Authority</span><span class="dot">·</span>
+    <span>Keyword Clustering</span><span class="dot">·</span>
+    <span>LLM Visibility</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="section-inner">
+    <div>
+      <p class="section-tag">Philosophy</p>
+      <h2 class="section-title">How I think about search</h2>
+    </div>
+    <blockquote class="philosophy-quote">
+      "Rankings are a symptom. The real work is making a site worth ranking: technically clean, structurally sound, and genuinely authoritative on the topics that matter to its audience."
+      <cite>— Gaius Nyd Formoso</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-inner">
+    <p class="section-tag reveal">Core Expertise</p>
+    <h2 class="section-title reveal reveal-delay-1">What I do,<br>and how I do it</h2>
+
+    <div class="expertise-grid">
+
+      <div class="expertise-card reveal">
+        <div class="expertise-num">01</div>
+        <div class="expertise-title">Technical SEO</div>
+        <p class="expertise-desc">Full crawl audits, Core Web Vitals optimization (LCP, INP, CLS), robots.txt, XML sitemaps, canonical strategy, redirect management, and structured data implementation.</p>
+        <div class="expertise-tools">
+          <span class="tool-pill">Screaming Frog</span>
+          <span class="tool-pill">GSC</span>
+          <span class="tool-pill">PageSpeed</span>
+        </div>
+      </div>
+
+      <div class="expertise-card reveal reveal-delay-1">
+        <div class="expertise-num">02</div>
+        <div class="expertise-title">Keyword Research & Clustering</div>
+        <p class="expertise-desc">Intent-mapped research, topical gap analysis, and clustering frameworks that give content teams a clear roadmap for building real search visibility.</p>
+        <div class="expertise-tools">
+          <span class="tool-pill">Ahrefs</span>
+          <span class="tool-pill">Semrush</span>
+          <span class="tool-pill">Search Atlas</span>
+        </div>
+      </div>
+
+      <div class="expertise-card reveal reveal-delay-2">
+        <div class="expertise-num">03</div>
+        <div class="expertise-title">On-Page Optimization</div>
+        <p class="expertise-desc">Title tags, meta structures, heading hierarchies, and intent-matched keyword placement. Includes cannibalization analysis and consolidation.</p>
+        <div class="expertise-tools">
+          <span class="tool-pill">Surfer SEO</span>
+          <span class="tool-pill">Yoast</span>
+          <span class="tool-pill">Rank Math</span>
+        </div>
+      </div>
+
+      <div class="expertise-card reveal">
+        <div class="expertise-num">04</div>
+        <div class="expertise-title">Local SEO</div>
+        <p class="expertise-desc">GBP optimization, local citation building, review strategy, and local keyword targeting for multi-location businesses. Drives real foot traffic.</p>
+        <div class="expertise-tools">
+          <span class="tool-pill">BrightLocal</span>
+          <span class="tool-pill">GBP</span>
+          <span class="tool-pill">Local Schema</span>
+        </div>
+      </div>
+
+      <div class="expertise-card reveal reveal-delay-1">
+        <div class="expertise-num">05</div>
+        <div class="expertise-title">Schema & Structured Data</div>
+        <p class="expertise-desc">Article, FAQ, BreadcrumbList, LocalBusiness, and Product schema implementations that make pages eligible for rich results and improve SERP presence.</p>
+        <div class="expertise-tools">
+          <span class="tool-pill">JSON-LD</span>
+          <span class="tool-pill">Schema Validator</span>
+        </div>
+      </div>
+
+      <div class="expertise-card reveal reveal-delay-2">
+        <div class="expertise-num">06</div>
+        <div class="expertise-title">AI-Era SEO & LLM Visibility</div>
+        <p class="expertise-desc">E-E-A-T signal optimization, entity-based SEO frameworks, and content strategies built for AI Overview and LLM search visibility. Where ranking is heading.</p>
+        <div class="expertise-tools">
+          <span class="tool-pill">AI Overviews</span>
+          <span class="tool-pill">Entity SEO</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="work" class="case-studies">
+  <div class="section-inner">
+    <p class="section-tag">Case Studies</p>
+    <h2 class="section-title">Selected work</h2>
+    <p>Real results from real campaigns. Client identities are kept confidential.</p>
+
+    <div class="case-grid">
+
+      <!-- Finance -->
+      <div class="case-card reveal">
+        <div>
+          <p class="case-industry">Enterprise · Finance</p>
+          <h3 class="case-title">From 0 to 1.08M Clicks: Scaling Organic for a National Finance Platform</h3>
+          <p class="case-narrative">
+            A national financial services platform had the domain authority but no content architecture to convert it. The diagnosis: fragmented topical coverage, Core Web Vitals failures on high-traffic pages, and zero structured data across a YMYL category demanding E-E-A-T proof.<br><br>
+            The fix was systematic. I built a topical cluster map that revealed 200+ content gaps, ran a CWV audit that surfaced LCP failures above 4s on 40% of indexed pages, and stood up structured data (Article, FAQ, BreadcrumbList) across key verticals. A refresh cadence kept high-traffic articles current and authoritative. Twelve months later, the platform had moved from near-zero organic presence to over a million clicks.
+          </p>
+          <div class="case-tags">
+            <span class="case-tag">Technical SEO</span>
+            <span class="case-tag">Content Architecture</span>
+            <span class="case-tag">E-E-A-T</span>
+            <span class="case-tag">Schema</span>
+            <span class="case-tag">Core Web Vitals</span>
+          </div>
+        </div>
+        <div class="case-metrics">
+          <div class="metric-block">
+            <div class="metric-value">1.08M</div>
+            <div class="metric-label">Total Clicks</div>
+            <div class="metric-delta">↑ Organic Growth</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">18.9M</div>
+            <div class="metric-label">Impressions</div>
+            <div class="metric-delta">Avg Pos 17.3</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">5.7%</div>
+            <div class="metric-label">Avg CTR</div>
+            <div class="metric-delta">Well above avg</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">12mo</div>
+            <div class="metric-label">Window</div>
+            <div class="metric-delta">GSC Verified</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Furniture E-commerce -->
+      <div class="case-card reveal">
+        <div>
+          <p class="case-industry">E-Commerce · Furniture</p>
+          <h3 class="case-title">$1M Revenue in 28 Days: Furniture E-commerce at Scale</h3>
+          <p class="case-narrative">
+            A furniture e-commerce brand was competing in a high-difficulty space with a site architecture working against it. Widespread keyword cannibalization meant category and product pages were fighting each other instead of complementing each other. Commercial-intent queries were landing on informational pages.<br><br>
+            I restructured the content silo, resolving cannibalization through targeted page consolidations and redirect management, and realigned product and category page optimization to match transactional intent. The results — tracked and confirmed in GA4 — came in at 246K active users and over $1M revenue within a single 28-day window, representing 797.5% YoY user growth.
+          </p>
+          <div class="case-tags">
+            <span class="case-tag">E-commerce SEO</span>
+            <span class="case-tag">Cannibalization Fix</span>
+            <span class="case-tag">GA4 Tracking</span>
+            <span class="case-tag">Content Silo</span>
+          </div>
+        </div>
+        <div class="case-metrics">
+          <div class="metric-block">
+            <div class="metric-value">246K</div>
+            <div class="metric-label">Active Users</div>
+            <div class="metric-delta">↑ 797.5% YoY</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">$1M+</div>
+            <div class="metric-label">GA4 Revenue</div>
+            <div class="metric-delta">↑ 272.7% YoY</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">275K</div>
+            <div class="metric-label">Sessions</div>
+            <div class="metric-delta">↑ 641.1% YoY</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">28</div>
+            <div class="metric-label">Day Window</div>
+            <div class="metric-delta">GA4 Verified</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dental -->
+      <div class="case-card reveal">
+        <div>
+          <p class="case-industry">Healthcare · Dental Practice</p>
+          <h3 class="case-title">41.2K Clicks in 12 Months: Healthcare SEO in a YMYL Space</h3>
+          <p class="case-narrative">
+            Healthcare SEO carries a higher bar: Google's YMYL classification means E-E-A-T isn't optional, it's the price of entry. This dental practice needed local visibility and the kind of content authority that earns it.<br><br>
+            I implemented LocalBusiness schema to establish entity clarity, optimized the Google Business Profile for local intent queries, and built a hub-and-spoke content model mapping key dental procedures to patient concerns. Note: the 0.5% CTR reflects the informational nature of most queries in this space — SERP features (knowledge panels, local packs) absorb clicks before organic listings. Impressions growth and position improvement were the meaningful signals here.
+          </p>
+          <div class="case-tags">
+            <span class="case-tag">Local SEO</span>
+            <span class="case-tag">Healthcare E-E-A-T</span>
+            <span class="case-tag">Schema Markup</span>
+            <span class="case-tag">GBP</span>
+          </div>
+        </div>
+        <div class="case-metrics">
+          <div class="metric-block">
+            <div class="metric-value">41.2K</div>
+            <div class="metric-label">Organic Clicks</div>
+            <div class="metric-delta">12-Month Period</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">8.54M</div>
+            <div class="metric-label">Impressions</div>
+            <div class="metric-delta">Avg Pos 17.4</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">0.5%</div>
+            <div class="metric-label">Avg CTR</div>
+            <div class="metric-delta">YMYL / SERP Features</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">GSC</div>
+            <div class="metric-label">Data Source</div>
+            <div class="metric-delta">Verified</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Local GBP -->
+      <div class="case-card reveal">
+        <div>
+          <p class="case-industry">Local Business · Multi-Location</p>
+          <h3 class="case-title">37,000+ GBP Interactions Across 3 Furniture Retail Locations</h3>
+          <p class="case-narrative">
+            Three furniture retail locations competing in local search, each with inconsistent GBP profiles and citation data that was undercutting local relevance signals. I ran a full GBP audit across all three locations, corrected citation consistency, and tightened local keyword targeting to match store-level intent.<br><br>
+            Over a six-month window (Jul–Dec 2025), the combined locations generated 37,000+ Business Profile interactions — direction requests, calls, and website clicks — led by Galleria Furniture at 19K+.
+          </p>
+          <div class="case-tags">
+            <span class="case-tag">Google Business Profile</span>
+            <span class="case-tag">Local Citations</span>
+            <span class="case-tag">Multi-Location SEO</span>
+            <span class="case-tag">BrightLocal</span>
+          </div>
+        </div>
+        <div class="case-metrics">
+          <div class="metric-block">
+            <div class="metric-value">37K+</div>
+            <div class="metric-label">GBP Interactions</div>
+            <div class="metric-delta">3 Locations</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">19K+</div>
+            <div class="metric-label">Galleria Furniture</div>
+            <div class="metric-delta">Top Location</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">9.8K</div>
+            <div class="metric-label">Furniture World 1</div>
+            <div class="metric-delta">Jul–Dec 2025</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">8.6K</div>
+            <div class="metric-label">Furniture World 2</div>
+            <div class="metric-delta">Jul–Dec 2025</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section">
+  <div class="section-inner">
+    <p class="section-tag reveal">Tool Stack</p>
+    <h2 class="section-title reveal reveal-delay-1">Instruments<br>of the work</h2>
+
+    <div class="tools-layout">
+      <div class="tools-sidebar reveal">
+        <p>These aren't tools I list for optics. They're what I work inside every day. The frequency labels are honest about actual usage depth.</p>
+      </div>
+
+      <div class="tools-grid reveal reveal-delay-2">
+        <div class="tool-card">
+          <div class="tool-name">Google Search Console</div>
+          <div class="tool-freq daily">Daily</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Google Analytics 4</div>
+          <div class="tool-freq daily">Daily</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Screaming Frog</div>
+          <div class="tool-freq core">Core</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Ahrefs</div>
+          <div class="tool-freq core">Core</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Semrush</div>
+          <div class="tool-freq core">Core</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Surfer SEO</div>
+          <div class="tool-freq content">Content</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">BrightLocal</div>
+          <div class="tool-freq content">Local</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Search Atlas</div>
+          <div class="tool-freq content">Research</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">WordPress + Yoast</div>
+          <div class="tool-freq cms">CMS</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Shopify</div>
+          <div class="tool-freq cms">CMS</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">HubSpot</div>
+          <div class="tool-freq cms">CMS</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Claude / ChatGPT</div>
+          <div class="tool-freq content">AI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-wrap" style="background: var(--accent2);">
+  <div class="marquee-track" style="animation-direction: reverse;">
+    <span>Finance</span><span class="dot">·</span>
+    <span>Dental & Healthcare</span><span class="dot">·</span>
+    <span>Personal Finance</span><span class="dot">·</span>
+    <span>Furniture E-commerce</span><span class="dot">·</span>
+    <span>Local Business</span><span class="dot">·</span>
+    <span>Service Businesses</span><span class="dot">·</span>
+    <span>Enterprise Websites</span><span class="dot">·</span>
+    <span>Finance</span><span class="dot">·</span>
+    <span>Dental & Healthcare</span><span class="dot">·</span>
+    <span>Personal Finance</span><span class="dot">·</span>
+    <span>Furniture E-commerce</span><span class="dot">·</span>
+    <span>Local Business</span><span class="dot">·</span>
+    <span>Service Businesses</span><span class="dot">·</span>
+    <span>Enterprise Websites</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <p class="section-tag reveal">Work History</p>
+    <h2 class="section-title reveal reveal-delay-1">Where I've<br>built this</h2>
+
+    <div class="experience-timeline">
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">Current · Full-Time</div>
+          <div class="exp-company">A9</div>
+        </div>
+        <div>
+          <h3 class="exp-role">SEO Specialist</h3>
+          <ul class="exp-bullets">
+            <li>Led keyword research and topical clustering programs that surfaced high-intent content gaps across multiple client verticals, producing prioritized roadmaps teams could execute against.</li>
+            <li>Ran technical SEO audits with Screaming Frog and Semrush, delivering impact-ranked fix lists covering crawlability, indexation, canonicalization, and redirect chains.</li>
+            <li>Executed Core Web Vitals audits (LCP, INP, CLS) and coordinated developer implementation of performance improvements flagged by search engines.</li>
+            <li>Built structured data implementations (Article, FAQ, BreadcrumbList) to make pages eligible for rich results and improve SERP appearance.</li>
+            <li>Identified and resolved content cannibalization issues across client portfolios through page consolidation and intent sharpening.</li>
+            <li>Produced monthly GSC and GA4 performance reports translated into clear next steps for both technical and non-technical stakeholders.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">Previous · Contract</div>
+          <div class="exp-company">A9</div>
+        </div>
+        <div>
+          <h3 class="exp-role">Drop Service SEO Assistant</h3>
+          <ul class="exp-bullets">
+            <li>Supported full SEO campaign delivery across multiple client accounts simultaneously — keyword research, page targeting, and content outlines.</li>
+            <li>Conducted site audits and health checks with Screaming Frog, Semrush, and Ahrefs, triaging technical issues by performance impact.</li>
+            <li>Managed content publishing across WordPress, Shopify, and HubSpot while maintaining consistent on-page SEO standards.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">Training Role</div>
+          <div class="exp-company">JeaniusSEO</div>
+        </div>
+        <div>
+          <h3 class="exp-role">Assistant Team Leader, SEO Training Program</h3>
+          <ul class="exp-bullets">
+            <li>Took on a leadership role during an intensive SEO training program, coaching teammates through keyword strategy, on-page optimization, and core SEO workflows.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="section-inner">
+    <div>
+      <p class="section-tag">Contact</p>
+      <h2 class="section-title">Let's build something that ranks.</h2>
+      <p class="contact-desc">
+        Open to full-time SEO roles, freelance strategy engagements, and agency partnerships. Remote-ready, async-first, and comfortable working across international time zones.
+      </p>
+      <div class="availability-badge">Available for new projects</div>
+    </div>
+
+    <div class="contact-links">
+      <a href="mailto:fgaiusnyd@gmail.com" class="contact-link">
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-value">fgaiusnyd@gmail.com</div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="tel:+639552951869" class="contact-link">
+        <div>
+          <div class="contact-link-label">Phone</div>
+          <div class="contact-link-value">+63 955 295 1869</div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="#" class="contact-link">
+        <div>
+          <div class="contact-link-label">LinkedIn</div>
+          <div class="contact-link-value">View Profile</div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <div class="contact-link" style="cursor: default;">
+        <div>
+          <div class="contact-link-label">Location</div>
+          <div class="contact-link-value">Malaybalay City, Bukidnon, PH</div>
+        </div>
+        <span class="contact-link-arrow" style="opacity:0.3;">·</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Gaius Nyd Formoso · SEO Specialist & Technical SEO Strategist</span>
+  <span>Open to Remote & Freelance · Philippines</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
